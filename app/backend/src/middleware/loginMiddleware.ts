@@ -25,6 +25,10 @@ export const authToken = (request: Request, response: Response, next: NextFuncti
 
   const decoded = isValidToken(authorization);
 
+  if (!decoded) {
+    return response.status(401).send({ message: 'Token must be a valid token' });
+  }
+
   request.body.user = decoded;
 
   return next();
